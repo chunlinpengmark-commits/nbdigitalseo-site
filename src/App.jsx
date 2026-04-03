@@ -105,10 +105,25 @@ export default function AISeoMarketingLandingPage() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckout = (e) => {
-    e.preventDefault();
-    goTo('#success');
+  const stripeUrl = 'https://buy.stripe.com/8x2cMXbu081d1Qkbjb9AA00';
+
+const handleCheckout = (e) => {
+  e.preventDefault();
+
+  const payload = {
+    fullName: form.fullName,
+    email: form.email,
+    website: form.website,
+    notes: form.notes,
+    submittedAt: new Date().toISOString(),
   };
+
+  localStorage.setItem('seoLeadDraft', JSON.stringify(payload));
+
+  window.location.href = stripeUrl;
+};
+
+
 
   if (route === 'checkout') {
     return (
@@ -132,10 +147,9 @@ export default function AISeoMarketingLandingPage() {
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900">
                 Complete your order
               </h1>
-              <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-                Enter your business details below to start your monthly AI SEO service.
-                This demo version uses a simple confirmation flow and can later be connected to Stripe Checkout.
-              </p>
+<p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+  Fill in your contact details and website URL first. After that, you will continue to secure Stripe checkout to start your monthly AI SEO service.
+</p>
 
               <form onSubmit={handleCheckout} className="mt-10 grid gap-5">
                 <div>
@@ -199,7 +213,7 @@ export default function AISeoMarketingLandingPage() {
                   type="submit"
                   className="mt-3 inline-flex justify-center rounded-full bg-teal-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-teal-500/20 transition hover:scale-[1.02]"
                 >
-                  Pay and start service
+                  Continue to secure checkout
                 </button>
               </form>
             </section>
@@ -343,21 +357,7 @@ export default function AISeoMarketingLandingPage() {
               $150/month. No setup fee.
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-4">
-<button
-  onClick={() => window.location.href = "https://buy.stripe.com/8x2cMXbuO81d1Qkbjb9AA00"}
-  className="rounded-full bg-teal-500 px-7 py-4 text-sm font-semibold text-white"
->
-  Start SEO Service
-</button>
 
-              <a
-                href="#services"
-                className="rounded-full border border-slate-300 bg-white px-7 py-4 text-sm font-semibold text-slate-700 transition hover:border-slate-400"
-              >
-                View Deliverables
-              </a>
-            </div>
 
             <div className="mt-12 grid gap-4 sm:grid-cols-3">
               {[
@@ -602,7 +602,7 @@ export default function AISeoMarketingLandingPage() {
           </div>
 
 <button
-  onClick={() => window.location.href = "https://buy.stripe.com/8x2cMXbu081d1Qkbjb9AA00"}
+  onClick={() => window.location.href = "https://buy.stripe.com/8x2cMXbuO81d1Qkbjb9AA00"}
   className="mt-10 inline-flex rounded-full bg-teal-500 px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-teal-500/20 transition hover:scale-[1.02]"
 >
   Start SEO Service
@@ -641,12 +641,7 @@ function SiteHeader({ onNavigate }) {
           </a>
         </nav>
 
-        <button
-onClick={() => window.location.href = "https://buy.stripe.com/8x2cMXbuO81d1Qkbjb9AA00"}
-          className="rounded-full bg-teal-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:scale-[1.02]"
-        >
-          Start for $150/mo
-        </button>
+
       </div>
     </header>
   );
