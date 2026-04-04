@@ -10,7 +10,8 @@ export default function AISeoMarketingLandingPage() {
     notes: '',
   });
 
-  const stripeUrl = 'https://buy.stripe.com/8x2cMXbuO81d1Qkbjb9AA00';
+  const stripeUrl = 'https://buy.stripe.com/8x2cMXbu081d1Qkbjb9AA00';
+  const formspreeEndpoint = 'https://formspree.io/f/xykbbzye';
 
   useEffect(() => {
     const onHashChange = () => setRoute(getRoute());
@@ -108,7 +109,7 @@ export default function AISeoMarketingLandingPage() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckout = (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
 
     const payload = {
@@ -121,6 +122,26 @@ export default function AISeoMarketingLandingPage() {
     };
 
     localStorage.setItem('seoLeadDraft', JSON.stringify(payload));
+
+    try {
+      const response = await fetch(formspreeEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submit failed');
+      }
+    } catch (error) {
+      console.error('Formspree submit failed:', error);
+      alert('We could not submit your details right now. Please try again.');
+      return;
+    }
+
     window.location.href = stripeUrl;
   };
 
