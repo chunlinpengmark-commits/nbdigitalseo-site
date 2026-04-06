@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.packexpointernational.com)",
+      "WebFetch(domain:webcache.googleusercontent.com)",
+      "WebSearch",
+      "WebFetch(domain:www.interpack.com)",
+      "WebFetch(domain:www.propakasia.com)"
+    ]
+  }
+}

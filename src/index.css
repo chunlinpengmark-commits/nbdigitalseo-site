@@ -1,1 +1,144 @@
 @import "tailwindcss";
+
+/* ── Smooth scrolling ── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Premium body setup ── */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Subtle grain texture overlay for depth ── */
+.grain-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ── Fade-in on scroll animation ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s ease-out both;
+}
+
+/* Stagger delays for grid items */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+
+/* ── Gold glow pulse for key elements ── */
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(217, 170, 62, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(217, 170, 62, 0.15);
+  }
+}
+
+.gold-glow {
+  animation: goldPulse 4s ease-in-out infinite;
+}
+
+/* ── Shimmer effect for premium buttons ── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.btn-shimmer {
+  background-size: 200% auto;
+  background-image: linear-gradient(
+    90deg,
+    #d97706 0%,
+    #fbbf24 25%,
+    #d97706 50%,
+    #fbbf24 75%,
+    #d97706 100%
+  );
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── Gold line divider ── */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217, 170, 62, 0.4), transparent);
+}
+
+/* ── Subtle card hover glow ── */
+.card-hover-glow {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-glow:hover {
+  box-shadow: 0 0 30px rgba(217, 170, 62, 0.08), 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-color: rgba(217, 170, 62, 0.25);
+}
+
+/* ── Score bar animation ── */
+@keyframes growBar {
+  from { width: 0; }
+}
+
+.score-bar {
+  animation: growBar 1.2s ease-out both;
+}
+
+/* ── Number counter pulse ── */
+@keyframes countPulse {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-count {
+  animation: countPulse 0.6s ease-out both;
+}
+
+/* ── Premium scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d97706;
+}
+
+/* ── Selection color ── */
+::selection {
+  background: rgba(217, 170, 62, 0.3);
+  color: white;
+}
