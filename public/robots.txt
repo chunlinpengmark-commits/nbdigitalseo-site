@@ -1,4 +1,20 @@
+# RankFrame SEO — robots.txt
+# Last updated: 2026-04-12
+
 User-agent: *
 Allow: /
+Disallow: /assets/
+Disallow: /src/
 
-Sitemap: https://www.rankframeseo.com/sitemap.xml
+# Allow search engines to access case study PDF
+Allow: /case-study-pack-expo.pdf
+
+# Sitemaps
+Sitemap: https://rankframeseo.com/sitemap.xml
+
+# Crawl-delay (respected by Bing, Yandex)
+User-agent: Bingbot
+Crawl-delay: 5
+
+User-agent: Yandex
+Crawl-delay: 10
