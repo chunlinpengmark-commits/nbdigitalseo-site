@@ -60,7 +60,7 @@ export default function AISeoMarketingLandingPage() {
       success: 'Payment Successful — Welcome to RankFrame SEO',
     };
     const descriptions = {
-      home: 'RankFrame SEO delivers monthly SEO reports, keyword ranking tracking, and SEO architecture audits for small businesses. $150/month. No setup fee.',
+      home: 'RankFrame SEO delivers on-page SEO architecture setup and off-page Google Trust building. SEO Inside from $150/month. Full SEO growth from $1,000/month.',
       checkout: 'Submit your website details and start your monthly SEO reporting service. $150/month. No setup fee.',
       success: 'Your RankFrame SEO subscription is confirmed. We will begin your monthly SEO audit and report.',
     };
@@ -97,11 +97,11 @@ export default function AISeoMarketingLandingPage() {
   ];
 
   const highlights = [
-    'SEO architecture audit',
-    'Keyword ranking review',
+    'On-page SEO architecture setup',
+    'Off-page Google Trust building',
     'Monthly SEO reporting',
     'Technical SEO checks included',
-    '$150 per month',
+    'Plans from $150/month',
   ];
 
   const trustPoints = [
@@ -112,11 +112,11 @@ export default function AISeoMarketingLandingPage() {
   ];
 
   const benefits = [
-    { title: 'Monthly SEO architecture review', desc: 'Deep structural analysis of your site every 30 days' },
+    { title: 'On-Page SEO Architecture Setup', desc: 'We build your site\'s SEO foundation — meta tags, schema, sitemap, internal linking' },
+    { title: 'Off-Page Google Trust Building', desc: 'Backlinks, citations, and authority signals that earn Google\'s trust' },
     { title: 'Actionable keyword ranking insights', desc: 'Know exactly where you rank and how to move up' },
     { title: 'Metadata & crawlability checks', desc: 'Ensure Google sees and indexes your pages correctly' },
-    { title: 'Clean, easy-to-read reporting', desc: 'No jargon — clear findings and next steps' },
-    { title: 'Simple one-plan pricing', desc: 'One price, everything included, no surprises' },
+    { title: 'Two-tier pricing for every budget', desc: 'Start with on-page SEO, scale to full authority building' },
     { title: 'Clear SEO direction', desc: 'Prioritized roadmap so you know what to fix first' },
   ];
 
@@ -140,16 +140,16 @@ export default function AISeoMarketingLandingPage() {
       a: 'You submit your site details, our AI audit workflow begins, and you receive your first structured SEO review with recommendations.',
     },
     {
-      q: 'Is there any setup fee?',
-      a: 'No. The service is a flat $150 per month with no setup charge.',
+      q: 'What is the difference between SEO Inside and SEO Outside?',
+      a: 'SEO Inside ($150/month) covers on-page optimization — architecture, meta tags, schema, sitemap, and internal linking. SEO Outside ($1,000/month) adds off-page authority building — backlinks, citations, and Google Trust signals that boost your domain authority.',
     },
     {
-      q: 'What is included in the monthly report?',
-      a: 'The report includes SEO architecture checks, keyword ranking review, Google-facing framework checks, technical issues, and next-step priorities.',
+      q: 'Is there any setup fee?',
+      a: 'No. Both plans have no setup fee. Start at $150/month for SEO Inside, or $1,000/month for the complete SEO Inside + Outside package.',
     },
     {
       q: 'Who is this service best for?',
-      a: 'It is ideal for small businesses, startup teams, and site owners who want a premium monthly SEO review without the cost of a full agency retainer.',
+      a: 'SEO Inside is ideal for small businesses and startups that need a solid SEO foundation. SEO Inside + Outside is for businesses ready to aggressively grow their Google rankings and domain authority.',
     },
     {
       q: 'How fast do you review a website?',
@@ -161,7 +161,7 @@ export default function AISeoMarketingLandingPage() {
     },
   ];
 
-  const nextChargeText = useMemo(() => '$150 / month billed monthly', []);
+  const nextChargeText = useMemo(() => 'Billed monthly · Cancel anytime', []);
 
   const goTo = useCallback((next) => {
     window.location.hash = next;
@@ -271,13 +271,17 @@ export default function AISeoMarketingLandingPage() {
                 <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-5">
                   <div>
                     <div className="text-sm uppercase tracking-[0.22em] text-gray-400">Plan</div>
-                    <div className="mt-2 text-xl font-semibold">AI SEO Monthly</div>
+                    <div className="mt-2 text-xl font-semibold">RankFrame SEO</div>
                   </div>
-                  <div className="text-3xl font-semibold text-amber-400">$150</div>
+                  <div className="text-right">
+                    <div className="text-sm text-gray-400">From</div>
+                    <div className="text-3xl font-semibold text-amber-400">$150<span className="text-base font-normal text-gray-400">/mo</span></div>
+                  </div>
                 </div>
                 <div className="space-y-4 pt-5 text-gray-300">
                   <div className="flex items-center justify-between"><span>Billing</span><span>{nextChargeText}</span></div>
                   <div className="flex items-center justify-between"><span>Setup fee</span><span className="text-amber-400">$0</span></div>
+                  <div className="flex items-center justify-between"><span>Plans</span><span className="text-right text-sm">SEO Inside · SEO Inside + Outside</span></div>
                 </div>
               </div>
             </aside>
@@ -299,7 +303,7 @@ export default function AISeoMarketingLandingPage() {
             <div className="mt-8 text-sm font-semibold uppercase tracking-[0.3em] text-amber-500">Payment Successful</div>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">Thanks for your payment</h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-400">
-              Your order has been received successfully. We will begin processing your monthly AI SEO service and follow up using the details you provided.
+              Your order has been received successfully. We will begin your SEO audit and follow up using the details you provided.
             </p>
             <div className="mx-auto mt-10 grid max-w-2xl gap-4 text-left sm:grid-cols-2">
               <div className="rounded-2xl bg-[#1a1a1a] p-5 ring-1 ring-gray-800">
@@ -309,8 +313,8 @@ export default function AISeoMarketingLandingPage() {
               </div>
               <div className="rounded-2xl bg-[#1a1a1a] p-5 ring-1 ring-gray-800">
                 <div className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">Plan</div>
-                <div className="mt-2 text-lg font-semibold text-white">Monthly AI SEO Service</div>
-                <div className="mt-1 text-gray-400">$150 / month · No setup fee</div>
+                <div className="mt-2 text-lg font-semibold text-white">RankFrame SEO Service</div>
+                <div className="mt-1 text-gray-400">Monthly subscription · No setup fee</div>
               </div>
             </div>
             <div className="mt-10">
@@ -696,32 +700,83 @@ export default function AISeoMarketingLandingPage() {
         </section>
 
         {/* ── PRICING ── */}
-        <section id="pricing" className="mx-auto max-w-5xl px-6 pb-12 pt-20 lg:px-10" aria-label="Pricing">
+        <section id="pricing" className="mx-auto max-w-6xl px-6 pb-12 pt-20 lg:px-10" aria-label="Pricing">
           <FadeIn>
-            <div className="gold-glow rounded-[2.5rem] border border-gray-800 bg-[#141414] p-10 text-center md:p-14">
+            <div className="text-center mb-12">
               <div className="text-xs font-bold uppercase tracking-[0.35em] text-amber-500">Pricing</div>
               <h2 className="mt-5 text-4xl font-bold tracking-tight text-white md:text-5xl">
-                One service. One price.
+                Choose your SEO growth plan
               </h2>
-              <div className="mt-8">
-                <span className="text-6xl font-bold tracking-tight text-white">$150</span>
-                <span className="text-2xl text-gray-500">/month</span>
-              </div>
-              <p className="mt-4 text-lg font-medium text-amber-400/80">No setup fee. No contracts. Cancel anytime.</p>
+              <p className="mt-4 text-lg text-gray-400">Start with on-page SEO, or go all-in with Google Trust authority building.</p>
+            </div>
 
-              <div className="mx-auto mt-10 grid max-w-3xl gap-3 text-left sm:grid-cols-2">
-                {[
-                  'Monthly SEO report',
-                  'Full SEO architecture review',
-                  'Keyword ranking tracking',
-                  'Metadata and indexing checks',
-                  'Technical SEO recommendations',
-                  'Clear monthly reporting',
-                ].map((item) => (
-                  <div key={item} className="rounded-xl bg-[#1a1a1a] px-5 py-4 text-sm text-gray-300 ring-1 ring-gray-800">
-                    <span className="text-amber-500">✓</span> {item}
-                  </div>
-                ))}
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* SEO Inside Plan */}
+              <div className="rounded-[2rem] border border-gray-800 bg-[#141414] p-8 md:p-10 text-left">
+                <div className="text-xs font-bold uppercase tracking-[0.3em] text-amber-500/70">Foundation</div>
+                <h3 className="mt-3 text-2xl font-bold text-white">SEO Inside</h3>
+                <p className="mt-2 text-sm text-gray-400">On-page SEO architecture setup & monthly reporting</p>
+                <div className="mt-6">
+                  <span className="text-5xl font-bold text-white">$150</span>
+                  <span className="text-xl text-gray-500">/month</span>
+                </div>
+                <p className="mt-2 text-sm text-amber-400/70">No setup fee · Cancel anytime</p>
+                <div className="mt-8 space-y-3">
+                  {[
+                    'Full SEO architecture audit & setup',
+                    'Meta tags, schema markup, sitemap optimization',
+                    'Internal linking structure review',
+                    'Keyword ranking tracking',
+                    'Technical SEO issue identification',
+                    'Monthly performance report',
+                    '30-day priority roadmap',
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3 text-sm text-gray-300">
+                      <span className="mt-0.5 text-amber-500">✓</span> {item}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={() => goTo('#checkout')}
+                  className="mt-8 w-full rounded-full border border-amber-500/30 bg-transparent px-6 py-3.5 text-sm font-bold text-amber-400 transition hover:bg-amber-500/10"
+                >
+                  Start SEO Inside →
+                </button>
+              </div>
+
+              {/* SEO Outside Plan */}
+              <div className="gold-glow relative rounded-[2rem] border border-amber-500/30 bg-[#141414] p-8 md:p-10 text-left">
+                <div className="absolute -top-3 right-8 rounded-full bg-amber-500 px-4 py-1 text-xs font-bold text-black">RECOMMENDED</div>
+                <div className="text-xs font-bold uppercase tracking-[0.3em] text-amber-500">Complete Growth</div>
+                <h3 className="mt-3 text-2xl font-bold text-white">SEO Inside + Outside</h3>
+                <p className="mt-2 text-sm text-gray-400">Full on-page setup + off-page Google Trust authority building</p>
+                <div className="mt-6">
+                  <span className="text-5xl font-bold text-white">$1,000</span>
+                  <span className="text-xl text-gray-500">/month</span>
+                </div>
+                <p className="mt-2 text-sm text-amber-400/70">Everything in SEO Inside, plus authority building</p>
+                <div className="mt-8 space-y-3">
+                  {[
+                    'Everything in SEO Inside plan',
+                    'Google Trust & authority signal building',
+                    'High-quality backlink acquisition',
+                    'Business directory & citation building',
+                    'Content marketing for link building',
+                    'Competitor backlink analysis',
+                    'Domain authority growth tracking',
+                    'Monthly off-page SEO progress report',
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-3 text-sm text-gray-300">
+                      <span className="mt-0.5 text-amber-500">✓</span> {item}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={() => goTo('#checkout')}
+                  className="btn-shimmer mt-8 w-full rounded-full px-6 py-3.5 text-sm font-bold text-black shadow-lg transition hover:scale-[1.02]"
+                >
+                  Start Full SEO Growth →
+                </button>
               </div>
             </div>
           </FadeIn>
@@ -879,7 +934,7 @@ function SiteFooter() {
               <div>Architecture Audit</div>
               <div>Keyword Ranking Tracking</div>
               <div>Technical SEO Checks</div>
-              <div className="pt-2 text-amber-400 font-semibold">$150/month · No setup fee</div>
+              <div className="pt-2 text-amber-400 font-semibold">Plans from $150/month · No setup fee</div>
             </div>
           </div>
         </div>
