@@ -3,6 +3,136 @@
 
 export const posts = [
   {
+    slug: 'seo-architecture-playbook-small-business',
+    title: 'The Small Business SEO Architecture Playbook: 5 Technical Fixes Google Actually Rewards in 2026',
+    excerpt:
+      "If your website isn't ranking, the problem usually isn't your content — it's your architecture. This playbook walks through the five technical fixes that unlock organic visibility, with real numbers from a $200K+/month audit.",
+    date: '2026-04-13',
+    readTime: '10 min read',
+    author: 'Blue Galaxy',
+    tags: ['Technical SEO', 'On-Page SEO', 'Schema Markup', 'Core Web Vitals', 'Small Business'],
+    content: `A small business owner emailed me last month with a painful question: "We have better products than our competitors, better reviews, lower prices — so why are *they* on page one of Google and we're on page four?"
+
+The answer is almost always the same, and it has nothing to do with products or prices. It has to do with what Google's crawler sees when it visits the site. Most small business websites aren't losing to better competitors. They're losing to websites whose **technical SEO architecture** is legible to Google. Their own site isn't.
+
+This is the playbook I wish every small business owner had before spending a dollar on ads. Five fundamentals that compound month after month — no black-hat tricks, no hacks Google will penalize later. Just the boring, durable architecture Google explicitly says it rewards.
+
+## Why Architecture Beats Content (for Now)
+
+Here's the uncomfortable truth: you can have the best-written service page in your industry, but if Google's crawler has no idea what the page is about, who wrote it, how it connects to the rest of your site, or whether it loads fast enough to recommend — **your content might as well not exist**.
+
+When we audited **packexpointernational.com** — a trade show platform pulling 40,000+ attendees annually — we estimated they were leaving **$200,000 to $575,000 per month** of organic traffic value on the table. The business was strong. The industry was lucrative. The content wasn't the problem. The technical foundation was.
+
+That's the opportunity. The five fixes below are exactly what we applied, and they're the same five fixes that move the needle on nearly every site we audit.
+
+## Fix #1: Title Tags That Pass the "Search Result" Test
+
+The cheapest, highest-leverage SEO change you can make today is rewriting your title tags.
+
+Here's the test I use: imagine your title tag showing up in Google's search results next to your competitors'. Would a stranger clicking through understand what page they're about to land on? If your title is "Home" or "Welcome to [Your Business]" — no. If it's 120 characters of keyword-stuffed "Plumbing | Drain | Bathroom | Water Heater | Emergency | Chicago" — also no.
+
+**The architecture fix:** Every page gets a unique 50-60 character title that leads with the primary keyword and ends with the brand.
+
+Good examples:
+
+\`\`\`
+Emergency Plumbing in Chicago | John's Plumbing        (58 chars)
+Commercial Drain Cleaning Services | John's Plumbing   (54 chars)
+Water Heater Installation & Repair | Chicago Plumber   (53 chars)
+\`\`\`
+
+**The math:** a single poorly optimized title tag can cost 50-100 monthly organic visits per page. A 30-page site with generic titles is leaving 1,500-3,000 monthly visitors on the table from this fix alone.
+
+## Fix #2: Schema Markup — Give Google a Cheat Sheet
+
+Most small business owners have never heard of schema markup. This is exactly why it works so well: almost no one's doing it.
+
+Schema is structured data (JSON-LD) that tells Google *explicitly* what's on your page — not "here's some text, figure it out," but "this is a business, here are the hours, here are the services, here are the FAQs, here's a customer review with this star rating."
+
+The highest-ROI schema types for small businesses:
+- **Organization** — your company at a glance
+- **LocalBusiness** — address, hours, contact, service area
+- **Product** — for ecommerce
+- **FAQPage** — for any page with questions and answers
+- **Review / AggregateRating** — for social proof in search results
+
+**Why this matters:** schema unlocks rich snippets — stars, prices, FAQs, "People Also Ask" boxes — directly in search results. Pages with schema see **20-30% higher click-through rates** than plain text results, even when they rank in the same position.
+
+## Fix #3: Internal Linking — Stop Starving Your Own Pages
+
+Ask any business owner to name their most authoritative page, and they'll say "the homepage." Ask how many internal pages link to it, and the answer is usually "the nav menu, I guess."
+
+That's the architecture problem. Your homepage earns the most trust signals — direct traffic, press mentions, external backlinks. But if your internal linking doesn't distribute that authority to your money pages, those pages starve.
+
+**The fix — a hub-and-spoke model:**
+- Your homepage is the hub
+- Category pages link up to the homepage and down to individual service/product pages
+- Service/product pages cross-link to related services and back to their category
+- Blog posts link into relevant service pages using keyword-rich anchor text
+
+**Anchor text matters:**
+
+Bad: "Click here to learn more"
+Good: "Read our complete guide to on-page SEO architecture"
+
+**Why this matters:** a well-architected internal linking strategy can lift secondary pages by **30-50% in rankings without a single new backlink**. You already have the authority — you're just not distributing it.
+
+## Fix #4: Sitemaps and Robots.txt — The Crawler's Map
+
+A library without a catalog is still a library, but Google won't find your rare books. Your XML sitemap is that catalog. Your robots.txt is the map telling crawlers which doors are open.
+
+Both are tiny files. Both take an afternoon to set up. Both dramatically improve how efficiently Google indexes your site.
+
+**Minimum viable setup:**
+- An \`sitemap.xml\` listing every page you want indexed, with \`<lastmod>\` dates that actually update
+- A \`robots.txt\` that allows crawlers on public content, blocks admin/cart/internal pages, and points to the sitemap
+- Submit the sitemap in **Google Search Console** and **Bing Webmaster Tools**
+
+**Why this matters:** without these, Google wastes crawl budget on junk pages (search result pages, cart URLs, pagination dead-ends) and misses the ones that actually earn revenue. It's not glamorous, but it's the difference between 20% and 90% of your pages being indexed.
+
+## Fix #5: Core Web Vitals — Speed Is a Ranking Factor Now
+
+The packexpointernational.com audit revealed the kind of Core Web Vitals numbers I see on maybe 70% of small business sites:
+
+- **Largest Contentful Paint (LCP):** 3.2s (goal: under 2.5s)
+- **Cumulative Layout Shift (CLS):** 0.18 (goal: under 0.1)
+- **First Input Delay (FID):** 150ms (goal: under 100ms)
+
+None catastrophic. All bad enough that Google quietly deprioritizes the site relative to faster competitors — and bad enough that real human visitors bounce before converting.
+
+**Five fixes, in priority order:**
+
+1. **Compress and lazy-load images** — WebP format, \`loading="lazy"\`, explicit width/height attributes
+2. **Minify and defer non-critical CSS/JS** — especially third-party scripts (chat widgets, analytics pixels)
+3. **Use \`font-display: swap\`** — prevents invisible text while custom fonts load
+4. **Enable long browser caching** for static assets (1-6 months)
+5. **Put static assets behind a CDN** — Cloudflare's free tier handles most small business needs
+
+**Why this matters:** Google explicitly uses Core Web Vitals as a ranking factor. A 1-second speed improvement also lifts conversion rates by roughly 7%. You're getting SEO and conversion optimization from the same work.
+
+## Putting It Together: The Architecture Advantage
+
+None of these five fixes are clever. None of them require a redesign. None of them cost more than a few days of focused work for someone who knows what they're doing.
+
+When we applied this exact playbook to packexpointernational.com, **organic traffic grew 180% over nine months** — which, at their scale, translated directly into the $200K-$575K monthly value we'd flagged. The content didn't change. The products didn't change. The architecture changed, and Google finally understood what was already there.
+
+Your site doesn't need to be impressive to rank. It needs to be **understood**. Fix the five fundamentals, and the rankings follow.
+
+## Your 10-Hour Action Plan
+
+If you only have one focused workweek, spend it here, in this order:
+
+1. **Title tag audit** (2 hours) — open a spreadsheet, list every page, rewrite every generic title to be unique, keyword-first, under 60 characters
+2. **Schema markup** (3 hours) — add Organization + LocalBusiness site-wide, FAQPage on your FAQ page, Product schema on any product pages
+3. **Internal linking pass** (2 hours) — add 2-3 contextual links from each high-traffic page to your money pages with keyword-rich anchors
+4. **Sitemap + robots.txt** (1 hour) — generate, upload, submit to Google and Bing
+5. **Core Web Vitals** (2 hours) — run PageSpeed Insights, fix the top 3 issues it flags
+
+Ten hours. Probably the highest-leverage ten hours you'll spend on marketing this year.
+
+If you'd rather skip the learning curve, that's what [RankFrame SEO](/) is built for — **$150/month** for on-page architecture, monthly reports, and prioritized fixes, or **$750/month** including backlink building and long-term authority growth. Either way, the fix is straightforward and the payoff is substantial. Don't let another month pass with invisible architecture.`,
+  },
+  {
     slug: 'invisible-to-google-5-architecture-fixes',
     title: 'Why Most Small Business Websites Are Invisible to Google — And the 5 Architecture Fixes That Change Everything',
     excerpt:
@@ -178,6 +308,206 @@ Either way, don't let another month pass with invisible SEO architecture. The fi
   },
 ];
 
-export function getPostBySlug(slug) {
-  return posts.find((p) => p.slug === slug);
+// Posts scheduled for future publication — not shown on the blog list until `date` is reached.
+const scheduledPosts = [
+  {
+    slug: 'backlink-playbook-small-business-2026',
+    title: 'The Small Business Backlink Playbook: How to Earn 10 Quality Links a Month Without Paying for Them',
+    excerpt:
+      "Backlinks are still the single strongest ranking signal — but the tactics that worked in 2018 will get you penalized in 2026. Here's the outreach and citation strategy we use to earn 10+ high-authority links per month for small businesses.",
+    date: '2026-04-20',
+    readTime: '11 min read',
+    author: 'Blue Galaxy',
+    tags: ['Backlinks', 'Off-Page SEO', 'Link Building', 'Outreach', 'Small Business'],
+    content: `Every SEO tool on the market will tell you the same thing: backlinks are still the number one off-page ranking signal in 2026. Google's own search quality guidelines barely changed that calculus even after the March 2024 core update, the AI Overviews rollout, or the death of most link farms.
+
+But here's what those tools won't tell you: **90% of the backlink advice online will now actively hurt your rankings**. Guest post networks, PBNs, paid directory submissions, comment-spam outreach — the tactics that worked six years ago now trigger algorithmic demotion, not wins.
+
+So what actually works for a small business with no brand, no PR team, and no five-figure link-building budget? That's what this playbook covers. These are the exact tactics we use at RankFrame to earn 10+ quality backlinks per month for clients on our $750/month plan — and every one of them works for a solo founder with zero agency help.
+
+## What Counts as a "Quality" Backlink in 2026
+
+Before tactics, definitions. Google's crawler evaluates backlinks on roughly four dimensions:
+
+1. **Domain authority of the linking site** — is this a real business with real traffic?
+2. **Topical relevance** — does the linking site's content cluster match yours?
+3. **Link placement** — is the link in the body of an article (good) or in a footer / sidebar / directory listing (weaker)?
+4. **Anchor text naturalness** — does the anchor read like a human wrote it?
+
+A single link from a relevant industry publication where your brand is mentioned in context is worth more than 50 directory submissions. Internalize this. It'll save you from wasting months on the wrong tactics.
+
+## Tactic #1: Unlinked Brand Mentions — The 5-Minute Wins
+
+Open Google and search: \`"your business name" -site:yourwebsite.com\`. You'll find every place on the internet that mentions your business but doesn't link to you. For most small businesses with any customer base, this is 10-50 free links waiting to be claimed.
+
+**The outreach:**
+
+> Subject: Quick thank-you
+>
+> Hi [name],
+>
+> Thanks for mentioning [Your Business] in your [article title] piece — really appreciated the context. One small note: the mention isn't linked. If it's easy, could you turn it into a link to [your URL]? Totally understand if not.
+>
+> [Your name]
+
+Conversion rate on this email is absurd — typically **40-60%**. Takes a weekend to do fifty of them. This alone can double a small site's backlink profile.
+
+## Tactic #2: HARO / Qwoted / Featured Replacements
+
+HARO (Help a Reporter Out) was sold in 2024 and has been replaced by several journalist-sourcing platforms: **Qwoted, Featured, SourceBottle, and Connectively**.
+
+Journalists on these platforms are actively looking for expert quotes. Every quote that gets used comes with a byline link back to your website — usually from a DA 60+ publication.
+
+**The routine:**
+- Spend 15 minutes every morning scanning queries in your industry
+- Reply to 2-3 relevant ones with specific, concrete, useful answers (not generic marketing fluff)
+- Expect 1-2 placements per month at the start, 3-5 once journalists start recognizing your name
+
+**Why this works:** you're not asking for a link, you're providing free expertise. The link is the byproduct. Google can tell the difference between earned editorial links and solicited ones, and this path produces the editorial kind.
+
+## Tactic #3: The Statistics Page
+
+Every niche has a hungry pool of bloggers and content marketers constantly searching for statistics to cite. Google queries like:
+
+- \`[your industry] statistics 2026\`
+- \`[your service] data\`
+- \`how many [your market metric]\`
+
+If you publish a single well-organized page of original statistics — even if you're just aggregating and citing existing research — every blogger who cites your page gives you a link. A solid statistics page built once can earn 2-5 backlinks per month passively, for years.
+
+**The format that works:**
+- 20-40 stats, each with a source citation
+- Clear H2 sections by category
+- An obvious "How to cite this page" box at the top
+- A "Last updated" date that you actually keep current
+
+## Tactic #4: Podcast Guest Appearances
+
+This is the single most underrated link-building channel in 2026. There are tens of thousands of niche business podcasts, and most of them are desperately hunting for guests. Every appearance typically earns you:
+
+- A link in the episode show notes (DA varies, but usually 30-50)
+- Sometimes a link from the podcast host's personal site
+- Occasionally a link from listeners who write follow-up blog posts
+
+**How to land appearances:**
+
+- Use **Podchaser** or **ListenNotes** to find podcasts in your industry with 10-100 reviews (the sweet spot — big enough to matter, small enough to say yes)
+- Pitch 10 per week with a specific episode angle, not a generic "I'd love to be on your show"
+- Follow up once after a week
+
+Conversion rate on well-targeted podcast pitches is **15-25%**. That's 1-2 appearances a week if you're consistent.
+
+## Tactic #5: Local Citations — The Foundation, Not the Ceiling
+
+Local citations (listings on directories like Google Business Profile, Yelp, Bing Places, Apple Maps, industry-specific directories) don't move rankings the way they did in 2015. But they're still foundational for **local SEO** — and they're required for your Google Business Profile to rank in the local pack.
+
+**The 50 citations every local business needs:**
+- Google Business Profile (the single most important)
+- Bing Places
+- Apple Maps Connect
+- Yelp
+- Yellow Pages / White Pages
+- Better Business Bureau
+- Facebook Business
+- LinkedIn Company Page
+- 10-15 industry-specific directories (varies by niche)
+- 25-30 local/regional business directories
+
+**The NAP rule:** Name, Address, Phone must be **identical** across every listing. Variation (different phone formats, abbreviated addresses, different business names) actively hurts local rankings.
+
+## Tactic #6: Broken Link Building — Still Works in 2026
+
+The mechanic: find an article on an authoritative site that links to a broken / dead resource, create a better version of that resource on your site, and email the site owner.
+
+**Tools:**
+- **Ahrefs** or **SEMrush** — find sites linking to broken URLs in your niche
+- **Check My Links** Chrome extension — spot broken links on specific pages manually
+
+**The email:**
+
+> Hi [name],
+>
+> I was reading your [article title] and noticed the link to [broken URL] is returning a 404. Not sure if you're still maintaining that post, but I thought you'd want to know.
+>
+> We actually published a guide covering the same topic — [your URL] — if you're updating and looking for a replacement it might be useful.
+>
+> [Your name]
+
+Conversion rate: **5-10%**. Low, but the links you earn are high-quality editorial placements on sites that were already willing to link out on the topic.
+
+## The Monthly Routine (What 10 Links/Month Looks Like)
+
+At RankFrame, our $750/month plan hits 10+ quality links per month using a consistent weekly routine:
+
+**Monday — Unlinked mentions pass (90 min)**
+Claim 3-5 existing mentions. Easy wins to start the week.
+
+**Tuesday — Journalist queries (60 min/day, split across the week)**
+Reply to 2-3 Qwoted/Featured queries daily. Expect 1-2 placements/month.
+
+**Wednesday — Podcast pitching (120 min)**
+Pitch 10 podcasts. Expect 2-4 recording sessions booked per month, 1-2 published per month.
+
+**Thursday — Broken link building (90 min)**
+Identify 20 broken-link opportunities, pitch 10. Expect 1-2 wins/month.
+
+**Friday — Statistics page update + content promotion (60 min)**
+Update the stats page with one new data point. Promote existing content to people likely to cite it.
+
+Plus: **local citations** as a one-time setup in month one (50 listings), then quarterly audits.
+
+Total time: roughly **6 hours per week**. The result is 10-15 new quality backlinks per month, compounding month over month.
+
+## What *Not* to Do
+
+I mentioned at the top that most backlink advice online is now counterproductive. Specifically, avoid:
+
+- **Paid guest post networks** — Google actively devalues these
+- **Private Blog Networks (PBNs)** — algorithmic and manual penalty risk
+- **Fiverr-style "500 backlinks for $20" packages** — these are spam farms
+- **Comment spam** — does nothing, wastes your time
+- **Bulk directory submission services** — low-quality citations dilute your profile
+- **Exact-match anchor text at scale** — looks unnatural, triggers demotion
+
+If a tactic feels like a shortcut, it is — and Google will catch up to it faster than your rankings can benefit.
+
+## The Compounding Math
+
+Ten quality links a month doesn't sound like a lot. But backlinks compound:
+
+- **Month 3:** 30 links, your top money pages start creeping up to page 2
+- **Month 6:** 60 links, domain authority climbs 5-10 points, long-tail keywords start ranking without new effort
+- **Month 12:** 120+ links, you're on page 1 for your core keywords, organic traffic has typically 2-3x'd
+
+This is the boring truth of SEO in 2026: the businesses winning organic search aren't the ones with the flashiest tactics. They're the ones who showed up every week for 12 months and did the work while competitors were chasing the next hack.
+
+If you want this process handled for you, [RankFrame's SEO Inside + Outside plan](/) includes all six of these tactics executed monthly, plus the on-page architecture work that makes the backlinks actually move rankings. **$750/month. No setup fee. Cancel anytime.**
+
+Either way, start this week. Ten links a month compounds fast.`,
+  },
+];
+
+// Published = scheduled posts whose date <= today
+function isPublished(post) {
+  try {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const postDate = new Date(post.date + 'T00:00:00');
+    return postDate.getTime() <= now.getTime();
+  } catch {
+    return true;
+  }
 }
+
+// Merge scheduled posts that are due into the published list
+scheduledPosts.forEach((p) => {
+  if (isPublished(p) && !posts.find((x) => x.slug === p.slug)) {
+    posts.unshift(p);
+  }
+});
+
+export function getPostBySlug(slug) {
+  return posts.find((p) => p.slug === slug) || scheduledPosts.find((p) => p.slug === slug && isPublished(p));
+}
+
+export { scheduledPosts };

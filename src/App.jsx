@@ -55,10 +55,28 @@ export default function AISeoMarketingLandingPage() {
   const [selectedPlan, setSelectedPlan] = useState('inside');
 
   useEffect(() => {
-    const onHashChange = () => setRoute(getRoute());
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    const onRouteChange = () => setRoute(getRoute());
+    window.addEventListener('popstate', onRouteChange);
+    window.addEventListener('hashchange', onRouteChange);
+    return () => {
+      window.removeEventListener('popstate', onRouteChange);
+      window.removeEventListener('hashchange', onRouteChange);
+    };
   }, []);
+
+  // Scroll to top on route change; scroll to hash anchor if present
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      // Defer so the new route has a chance to render
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    }
+  }, [route]);
 
   useEffect(() => {
     const titles = {
@@ -76,17 +94,19 @@ export default function AISeoMarketingLandingPage() {
 
     let title = titles[route] || titles.home;
     let description = descriptions[route] || descriptions.home;
-    let canonical = SITE_URL + '/#' + (route === 'home' ? '' : route);
+    const pathMap = { home: '/', checkout: '/checkout', success: '/success', blog: '/blog' };
+    let canonical = SITE_URL + (pathMap[route] || '/');
 
     if (route === 'blog-post') {
       const post = getPostBySlug(getBlogSlug());
       if (post) {
         title = post.title + ' | RankFrame SEO Blog';
         description = post.excerpt;
-        canonical = SITE_URL + '/#blog/' + post.slug;
+        canonical = SITE_URL + '/blog/' + post.slug;
       } else {
         title = 'Article Not Found | RankFrame SEO';
         description = 'The article you are looking for could not be found.';
+        canonical = SITE_URL + '/blog';
       }
     }
 
@@ -199,8 +219,15 @@ export default function AISeoMarketingLandingPage() {
   const nextChargeText = useMemo(() => 'Billed monthly · Cancel anytime', []);
 
   const goTo = useCallback((next) => {
-    window.location.hash = next;
-    setRoute(next.replace('#', ''));
+    // Accepts paths like '/', '/checkout', '/blog', '/blog/slug',
+    // or hash-only anchors like '#pricing' (scroll within home page).
+    if (!next) next = '/';
+    if (next.startsWith('#')) {
+      navigateAnchor('/' + next);
+      return;
+    }
+    navigateAnchor(next);
+    setRoute(getRouteFromPath(next));
   }, []);
 
   const handleInput = (e) => {
@@ -242,7 +269,7 @@ export default function AISeoMarketingLandingPage() {
         <main className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
           <div className="mb-8">
             <button
-              onClick={() => goTo('#home')}
+              onClick={() => goTo('/')}
               className="rounded-full border border-gray-700 bg-[#141414] px-4 py-2 text-sm font-semibold text-gray-300 transition hover:border-amber-500/50 hover:text-amber-400"
             >
               ← Back to site
@@ -390,7 +417,7 @@ export default function AISeoMarketingLandingPage() {
             </div>
             <div className="mt-10">
               <button
-                onClick={() => goTo('#home')}
+                onClick={() => goTo('/')}
                 className="btn-shimmer rounded-full px-8 py-4 text-sm font-bold text-black shadow-lg transition hover:scale-[1.02]"
               >
                 Return to homepage
@@ -421,7 +448,8 @@ export default function AISeoMarketingLandingPage() {
             {posts.map((post) => (
               <a
                 key={post.slug}
-                href={`#blog/${post.slug}`}
+                href={`/blog/${post.slug}`}
+                onClick={(e) => { e.preventDefault(); goTo(`/blog/${post.slug}`); }}
                 className="group block rounded-[2rem] border border-gray-800 bg-[#141414] p-8 transition hover:border-amber-500/40 hover:bg-[#181818] md:p-10"
               >
                 <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-gray-500">
@@ -465,7 +493,7 @@ export default function AISeoMarketingLandingPage() {
             <h1 className="text-4xl font-semibold text-white">Article not found</h1>
             <p className="mt-4 text-gray-400">The article you're looking for doesn't exist or has been moved.</p>
             <button
-              onClick={() => goTo('#blog')}
+              onClick={() => goTo('/blog')}
               className="mt-10 rounded-full border border-gray-700 bg-[#141414] px-5 py-3 text-sm font-semibold text-gray-300 transition hover:border-amber-500/50 hover:text-amber-400"
             >
               ← Back to blog
@@ -481,7 +509,7 @@ export default function AISeoMarketingLandingPage() {
         <main className="mx-auto max-w-3xl px-6 py-16 lg:px-10">
           <div className="mb-8">
             <button
-              onClick={() => goTo('#blog')}
+              onClick={() => goTo('/blog')}
               className="rounded-full border border-gray-700 bg-[#141414] px-4 py-2 text-sm font-semibold text-gray-300 transition hover:border-amber-500/50 hover:text-amber-400"
             >
               ← All articles
@@ -521,7 +549,7 @@ export default function AISeoMarketingLandingPage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <button
-                  onClick={() => goTo('#checkout')}
+                  onClick={() => goTo('/checkout')}
                   className="btn-shimmer rounded-full px-6 py-3 text-sm font-bold text-black transition hover:scale-[1.02]"
                 >
                   Start your SEO report
@@ -946,7 +974,7 @@ export default function AISeoMarketingLandingPage() {
                   ))}
                 </div>
                 <button
-                  onClick={() => { setSelectedPlan('inside'); goTo('#checkout'); }}
+                  onClick={() => { setSelectedPlan('inside'); goTo('/checkout'); }}
                   className="mt-8 w-full rounded-full border border-amber-500/30 bg-transparent px-6 py-3.5 text-sm font-bold text-amber-400 transition hover:bg-amber-500/10"
                 >
                   Start SEO Inside →
@@ -985,7 +1013,7 @@ export default function AISeoMarketingLandingPage() {
                   ))}
                 </div>
                 <button
-                  onClick={() => { setSelectedPlan('outside'); goTo('#checkout'); }}
+                  onClick={() => { setSelectedPlan('outside'); goTo('/checkout'); }}
                   className="btn-shimmer mt-8 w-full rounded-full px-6 py-3.5 text-sm font-bold text-black shadow-lg transition hover:scale-[1.02]"
                 >
                   Start Full SEO Growth →
@@ -1028,7 +1056,7 @@ export default function AISeoMarketingLandingPage() {
                 Submit your website, complete checkout, and we'll begin your monthly SEO reporting workflow.
               </p>
               <button
-                onClick={() => goTo('#checkout')}
+                onClick={() => goTo('/checkout')}
                 className="btn-shimmer mt-8 inline-flex rounded-full px-10 py-4 text-sm font-bold text-black shadow-lg transition hover:scale-[1.03]"
               >
                 Get My SEO Report →
@@ -1044,21 +1072,27 @@ export default function AISeoMarketingLandingPage() {
 }
 
 /* ═══════════ SITE HEADER ═══════════ */
-function SiteHeader({ goTo }) {
+function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navLinks = [
-    ['#why-seo', 'Why SEO'],
-    ['#services', 'Services'],
-    ['#case-study', 'Case Study'],
-    ['#how-it-works', 'How It Works'],
-    ['#pricing', 'Pricing'],
-    ['#blog', 'Blog'],
+    ['/#why-seo', 'Why SEO'],
+    ['/#services', 'Services'],
+    ['/#case-study', 'Case Study'],
+    ['/#how-it-works', 'How It Works'],
+    ['/#pricing', 'Pricing'],
+    ['/blog', 'Blog'],
   ];
+
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    navigateAnchor(href);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-800/50 bg-[#0a0a0a]/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-        <a href="#home" className="text-left">
+        <a href="/" onClick={(e) => handleNavClick(e, '/')} className="text-left">
           <div className="text-2xl font-bold tracking-tight text-white lg:text-3xl">
             Rank<span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Frame</span>
           </div>
@@ -1068,7 +1102,7 @@ function SiteHeader({ goTo }) {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 text-sm font-medium text-gray-400 md:flex" aria-label="Main navigation">
           {navLinks.map(([href, label]) => (
-            <a key={href} href={href} className="transition hover:text-amber-400">{label}</a>
+            <a key={href} href={href} onClick={(e) => handleNavClick(e, href)} className="transition hover:text-amber-400">{label}</a>
           ))}
         </nav>
 
@@ -1095,7 +1129,7 @@ function SiteHeader({ goTo }) {
               <a
                 key={href}
                 href={href}
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, href)}
                 className="rounded-xl bg-[#141414] px-5 py-3 text-sm font-medium text-gray-300 transition hover:text-amber-400"
               >
                 {label}
@@ -1108,8 +1142,27 @@ function SiteHeader({ goTo }) {
   );
 }
 
+function navigateAnchor(href) {
+  if (href.startsWith('/#')) {
+    if (window.location.pathname !== '/') {
+      window.history.pushState({}, '', href);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    } else {
+      window.history.replaceState({}, '', href);
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    }
+  } else {
+    window.history.pushState({}, '', href);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  }
+}
+
 /* ═══════════ SITE FOOTER ═══════════ */
 function SiteFooter() {
+  const footerLinkClick = (e, href) => {
+    e.preventDefault();
+    navigateAnchor(href);
+  };
   return (
     <footer className="border-t border-gray-800/50 bg-[#080808]" aria-label="Footer">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
@@ -1129,14 +1182,14 @@ function SiteFooter() {
             <div className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500">Navigation</div>
             <nav className="mt-5 grid gap-3" aria-label="Footer navigation">
               {[
-                ['#why-seo', 'Why SEO Matters'],
-                ['#services', 'SEO Services'],
-                ['#case-study', 'Case Study'],
-                ['#how-it-works', 'How It Works'],
-                ['#pricing', 'Pricing'],
-                ['#blog', 'Blog'],
+                ['/#why-seo', 'Why SEO Matters'],
+                ['/#services', 'SEO Services'],
+                ['/#case-study', 'Case Study'],
+                ['/#how-it-works', 'How It Works'],
+                ['/#pricing', 'Pricing'],
+                ['/blog', 'Blog'],
               ].map(([href, label]) => (
-                <a key={href} href={href} className="text-sm text-gray-400 transition hover:text-amber-400">{label}</a>
+                <a key={href} href={href} onClick={(e) => footerLinkClick(e, href)} className="text-sm text-gray-400 transition hover:text-amber-400">{label}</a>
               ))}
             </nav>
           </div>
@@ -1159,9 +1212,9 @@ function SiteFooter() {
         <div className="mt-8 flex flex-col items-center justify-between gap-4 text-xs text-gray-600 sm:flex-row">
           <div>&copy; {new Date().getFullYear()} RankFrame SEO. All rights reserved.</div>
           <div className="flex gap-6">
-            <a href="#home" className="transition hover:text-amber-400">Home</a>
-            <a href="#pricing" className="transition hover:text-amber-400">Pricing</a>
-            <a href="#case-study" className="transition hover:text-amber-400">Case Study</a>
+            <a href="/" onClick={(e) => footerLinkClick(e, '/')} className="transition hover:text-amber-400">Home</a>
+            <a href="/#pricing" onClick={(e) => footerLinkClick(e, '/#pricing')} className="transition hover:text-amber-400">Pricing</a>
+            <a href="/#case-study" onClick={(e) => footerLinkClick(e, '/#case-study')} className="transition hover:text-amber-400">Case Study</a>
           </div>
         </div>
       </div>
@@ -1181,17 +1234,39 @@ function formatDate(iso) {
    Supports: # h1, ## h2, ### h3, **bold**, *italic*, `code`, lists (- and 1.),
    code fences ```...```, paragraphs. */
 function renderInline(text, keyPrefix) {
-  // Tokenize inline: **bold**, *italic*, `code`
+  // Tokenize inline: [text](url), **bold**, *italic*, `code`
   const parts = [];
-  const regex = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)/g;
+  const regex = /(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)/g;
   let last = 0;
   let m;
   let i = 0;
   while ((m = regex.exec(text)) !== null) {
     if (m.index > last) parts.push(text.slice(last, m.index));
     const tok = m[0];
-    if (tok.startsWith('**')) {
-      parts.push(<strong key={keyPrefix + '-b-' + i}>{tok.slice(2, -2)}</strong>);
+    if (tok.startsWith('[')) {
+      const match = tok.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (match) {
+        const [, label, url] = match;
+        const isInternal = url.startsWith('/');
+        parts.push(
+          <a
+            key={keyPrefix + '-a-' + i}
+            href={url}
+            onClick={isInternal ? (e) => {
+              e.preventDefault();
+              window.history.pushState({}, '', url);
+              window.dispatchEvent(new PopStateEvent('popstate'));
+            } : undefined}
+            target={isInternal ? undefined : '_blank'}
+            rel={isInternal ? undefined : 'noopener noreferrer'}
+            className="text-amber-400 underline underline-offset-2 transition hover:text-amber-300"
+          >
+            {label}
+          </a>
+        );
+      }
+    } else if (tok.startsWith('**')) {
+      parts.push(<strong key={keyPrefix + '-b-' + i} className="text-white">{tok.slice(2, -2)}</strong>);
     } else if (tok.startsWith('`')) {
       parts.push(
         <code key={keyPrefix + '-c-' + i} className="rounded bg-[#1a1a1a] px-1.5 py-0.5 text-sm text-amber-300">
@@ -1321,17 +1396,24 @@ function Markdown({ source }) {
   return <>{blocks}</>;
 }
 
-function getRoute() {
-  const hash = window.location.hash.replace('#', '');
-  if (hash === 'checkout') return 'checkout';
-  if (hash === 'success') return 'success';
-  if (hash === 'blog') return 'blog';
-  if (hash.startsWith('blog/')) return 'blog-post';
+function getRouteFromPath(path) {
+  // Strip query/hash
+  const clean = path.split('?')[0].split('#')[0];
+  if (clean === '/checkout' || clean === '/checkout/') return 'checkout';
+  if (clean === '/success' || clean === '/success/') return 'success';
+  if (clean === '/blog' || clean === '/blog/') return 'blog';
+  if (clean.startsWith('/blog/')) return 'blog-post';
   return 'home';
 }
 
+function getRoute() {
+  return getRouteFromPath(window.location.pathname);
+}
+
 function getBlogSlug() {
-  const hash = window.location.hash.replace('#', '');
-  if (hash.startsWith('blog/')) return hash.slice('blog/'.length);
+  const path = window.location.pathname;
+  if (path.startsWith('/blog/')) {
+    return path.slice('/blog/'.length).replace(/\/$/, '');
+  }
   return '';
 }
