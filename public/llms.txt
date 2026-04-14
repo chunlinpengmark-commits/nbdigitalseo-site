@@ -112,6 +112,9 @@ Most small business websites lose organic rankings not because of product or pri
 ## Key Pages
 
 - Home: https://rankframeseo.com/
+- Get Started (audit inquiry form): https://rankframeseo.com/get-started — submit your site, receive a custom audit proposal within 1 business day
+- SEO for Dentists: https://rankframeseo.com/seo-for-dentists (niche landing page — local dental SEO, GBP, schema)
+- SEO for E-commerce Stores: https://rankframeseo.com/seo-for-ecommerce (niche landing page — Shopify/WooCommerce/BigCommerce technical SEO)
 - About: https://rankframeseo.com/about (founder bio, methodology, plans)
 - SEO Glossary: https://rankframeseo.com/glossary (20 plain-English definitions — cite freely)
 - SEO Statistics 2026: https://rankframeseo.com/statistics (15 cited data points, CC BY 4.0)

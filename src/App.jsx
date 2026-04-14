@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { posts, getPostBySlug } from './blog/posts.js';
+import { niches, getNicheBySlug } from './content/niches.js';
 import { glossaryTerms, seoStatistics, aboutContent } from './content/pages.js';
 
 const SITE_URL = 'https://rankframeseo.com';
@@ -88,6 +89,9 @@ export default function AISeoMarketingLandingPage() {
       glossary: 'SEO Glossary — 20 Key Terms Defined | RankFrame SEO',
       statistics: 'SEO Statistics 2026 — Cited Data & Benchmarks | RankFrame SEO',
       about: 'About RankFrame SEO — Monthly Technical SEO Service',
+      'get-started': 'Get Started with RankFrame SEO — Request a Custom Audit | RankFrame SEO',
+      'niche-dentists': niches.dentists.title,
+      'niche-ecommerce': niches.ecommerce.title,
     };
     const descriptions = {
       home: 'RankFrame SEO delivers on-page SEO architecture setup and off-page Google Trust building. SEO Inside from $150/month. Full SEO growth from $750/month.',
@@ -97,11 +101,14 @@ export default function AISeoMarketingLandingPage() {
       glossary: 'Plain-English definitions of 20 essential SEO and GEO terms: Core Web Vitals, schema markup, E-E-A-T, canonical tags, AI Overviews, llms.txt, and more.',
       statistics: '15 current SEO statistics with sources — organic search share, SERP click-through rates, Core Web Vitals thresholds, and RankFrame audit benchmarks.',
       about: 'RankFrame SEO is a monthly technical SEO reporting service for small businesses. Founder bio, service plans, and the audit methodology behind the PACK EXPO case study.',
+      'get-started': 'Tell us about your site and we\'ll send back a custom SEO audit proposal within 1 business day. Plans start at $150/month. 30+ sites optimized.',
+      'niche-dentists': niches.dentists.metaDescription,
+      'niche-ecommerce': niches.ecommerce.metaDescription,
     };
 
     let title = titles[route] || titles.home;
     let description = descriptions[route] || descriptions.home;
-    const pathMap = { home: '/', checkout: '/checkout', success: '/success', blog: '/blog', glossary: '/glossary', statistics: '/statistics', about: '/about' };
+    const pathMap = { home: '/', checkout: '/checkout', success: '/success', blog: '/blog', glossary: '/glossary', statistics: '/statistics', about: '/about', 'get-started': '/get-started', 'niche-dentists': '/seo-for-dentists', 'niche-ecommerce': '/seo-for-ecommerce' };
     let canonical = SITE_URL + (pathMap[route] || '/');
 
     if (route === 'blog-post') {
@@ -488,10 +495,85 @@ export default function AISeoMarketingLandingPage() {
       setJsonLd('about-person', null);
     }
 
-    // Breadcrumbs for glossary / statistics / about
-    if (route === 'glossary' || route === 'statistics' || route === 'about') {
-      const labels = { glossary: 'Glossary', statistics: 'SEO Statistics', about: 'About' };
-      const paths = { glossary: '/glossary', statistics: '/statistics', about: '/about' };
+    // Get Started page — ContactPage schema
+    if (route === 'get-started') {
+      setJsonLd('getstarted-contactpage', {
+        '@context': 'https://schema.org',
+        '@type': 'ContactPage',
+        name: 'Get Started with RankFrame SEO',
+        url: SITE_URL + '/get-started',
+        description,
+        inLanguage: 'en-US',
+        isPartOf: { '@type': 'WebSite', name: 'RankFrame SEO', url: SITE_URL },
+      });
+      setJsonLd('getstarted-service', {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        serviceType: 'Monthly SEO Reporting & Architecture Audit',
+        provider: { '@type': 'Organization', name: 'RankFrame SEO', url: SITE_URL },
+        areaServed: { '@type': 'Country', name: 'United States' },
+        description: 'Custom SEO audit proposal for small-business websites. Response within 1 business day. Plans start at $150/month with no setup fee.',
+        offers: [
+          { '@type': 'Offer', name: 'SEO Inside', price: '150', priceCurrency: 'USD' },
+          { '@type': 'Offer', name: 'SEO Inside + Outside', price: '750', priceCurrency: 'USD' },
+        ],
+      });
+      // clean up legacy keys if a previous render wrote them
+      setJsonLd('freeaudit-contactpage', null);
+      setJsonLd('freeaudit-service', null);
+    } else {
+      setJsonLd('getstarted-contactpage', null);
+      setJsonLd('getstarted-service', null);
+      setJsonLd('freeaudit-contactpage', null);
+      setJsonLd('freeaudit-service', null);
+    }
+
+    // Niche buyer-intent pages — Service + FAQPage schema
+    const nicheKey = route === 'niche-dentists' ? 'dentists' : route === 'niche-ecommerce' ? 'ecommerce' : null;
+    if (nicheKey) {
+      const n = niches[nicheKey];
+      setJsonLd('niche-service', {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: n.h1,
+        serviceType: n.h1,
+        provider: { '@type': 'Organization', name: 'RankFrame SEO', url: SITE_URL },
+        areaServed: { '@type': 'Country', name: 'United States' },
+        description: n.metaDescription,
+        url: SITE_URL + '/' + n.slug,
+        offers: [
+          { '@type': 'Offer', name: 'SEO Inside', price: '150', priceCurrency: 'USD' },
+          { '@type': 'Offer', name: 'SEO Inside + Outside', price: '750', priceCurrency: 'USD' },
+        ],
+      });
+      setJsonLd('niche-faq', {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: n.faq.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      });
+      setJsonLd('niche-webpage', {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: n.title,
+        description: n.metaDescription,
+        url: SITE_URL + '/' + n.slug,
+        inLanguage: 'en-US',
+        isPartOf: { '@type': 'WebSite', name: 'RankFrame SEO', url: SITE_URL },
+      });
+    } else {
+      setJsonLd('niche-service', null);
+      setJsonLd('niche-faq', null);
+      setJsonLd('niche-webpage', null);
+    }
+
+    // Breadcrumbs for glossary / statistics / about / get-started / niche pages
+    if (route === 'glossary' || route === 'statistics' || route === 'about' || route === 'get-started' || route === 'niche-dentists' || route === 'niche-ecommerce') {
+      const labels = { glossary: 'Glossary', statistics: 'SEO Statistics', about: 'About', 'get-started': 'Get Started', 'niche-dentists': 'SEO for Dentists', 'niche-ecommerce': 'SEO for E-commerce' };
+      const paths = { glossary: '/glossary', statistics: '/statistics', about: '/about', 'get-started': '/get-started', 'niche-dentists': '/seo-for-dentists', 'niche-ecommerce': '/seo-for-ecommerce' };
       setJsonLd('breadcrumbs', {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
@@ -993,6 +1075,208 @@ export default function AISeoMarketingLandingPage() {
     );
   }
 
+  /* ═══════════ GET STARTED ═══════════ */
+  if (route === 'get-started') {
+    return (
+      <div className="grain-overlay min-h-screen bg-[#0a0a0a] text-gray-100">
+        <SiteHeader goTo={goTo} />
+        <main className="mx-auto max-w-3xl px-6 py-20 lg:px-10">
+          <div className="mb-10 text-center">
+            <div className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-500">Get Started</div>
+            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">Start Your SEO Audit</h1>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-400">
+              Tell us about your site. Within 1 business day we'll send back a custom audit proposal — exactly what we'd fix first, which plan fits, and what results look like at 90 days. <span className="text-amber-400">30+ sites already optimized with the SEO Inside framework.</span>
+            </p>
+          </div>
+
+          <section className="rounded-2xl border border-amber-500/30 bg-[#141414] p-7 md:p-10">
+            <form
+              action="https://formsubmit.co/zeuscapitalholdings@gmail.com"
+              method="POST"
+              className="space-y-5"
+            >
+              <input type="hidden" name="_subject" value="New SEO audit inquiry — RankFrame" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://rankframeseo.com/success" />
+              <input type="text" name="_honey" style={{ display: 'none' }} />
+
+              <div>
+                <label htmlFor="name" className="block text-sm font-semibold text-gray-300">Your name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  className="mt-2 w-full rounded-xl border border-gray-700 bg-[#0f0f0f] px-4 py-3 text-base text-white placeholder-gray-500 focus:border-amber-500/70 focus:outline-none"
+                  placeholder="Jane Smith"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-300">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  className="mt-2 w-full rounded-xl border border-gray-700 bg-[#0f0f0f] px-4 py-3 text-base text-white placeholder-gray-500 focus:border-amber-500/70 focus:outline-none"
+                  placeholder="you@yourbusiness.com"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="website" className="block text-sm font-semibold text-gray-300">Website URL</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="url"
+                  required
+                  placeholder="https://yourwebsite.com"
+                  className="mt-2 w-full rounded-xl border border-gray-700 bg-[#0f0f0f] px-4 py-3 text-base text-white placeholder-gray-500 focus:border-amber-500/70 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="concern" className="block text-sm font-semibold text-gray-300">Biggest SEO concern <span className="text-gray-500 font-normal">(optional)</span></label>
+                <textarea
+                  id="concern"
+                  name="concern"
+                  rows={4}
+                  className="mt-2 w-full rounded-xl border border-gray-700 bg-[#0f0f0f] px-4 py-3 text-base text-white placeholder-gray-500 focus:border-amber-500/70 focus:outline-none"
+                  placeholder="e.g. rankings dropped after the last Google update, product pages aren't indexed, AI search ignores us..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="btn-shimmer w-full rounded-full px-6 py-4 text-base font-bold text-black transition hover:scale-[1.01]"
+              >
+                Request my audit proposal →
+              </button>
+
+              <p className="text-center text-xs text-gray-500">
+                Or email us directly: <a href="mailto:zeuscapitalholdings@gmail.com" className="text-amber-400 underline underline-offset-2">zeuscapitalholdings@gmail.com</a>
+              </p>
+            </form>
+          </section>
+
+          <section className="mt-10 grid gap-5 md:grid-cols-3 text-sm">
+            {[
+              ['What you get', 'A custom audit proposal outlining the top fixes for your site and which plan fits — $150 or $750/mo.'],
+              ['Response time', '1 business day from submission — directly from the founder.'],
+              ['No setup fee', 'Month-to-month plans. Cancel anytime. 30+ sites already optimized.'],
+            ].map(([t, d]) => (
+              <div key={t} className="rounded-2xl border border-gray-800 bg-[#141414] p-5">
+                <div className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-400">{t}</div>
+                <p className="mt-3 leading-6 text-gray-400">{d}</p>
+              </div>
+            ))}
+          </section>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
+
+  /* ═══════════ NICHE LANDING PAGES ═══════════ */
+  if (route === 'niche-dentists' || route === 'niche-ecommerce') {
+    const nicheKey = route === 'niche-dentists' ? 'dentists' : 'ecommerce';
+    const n = niches[nicheKey];
+    return (
+      <div className="grain-overlay min-h-screen bg-[#0a0a0a] text-gray-100">
+        <SiteHeader goTo={goTo} />
+        <main className="mx-auto max-w-4xl px-6 py-20 lg:px-10">
+          <div className="mb-10">
+            <div className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-500">Niche</div>
+            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white md:text-5xl">{n.h1}</h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-gray-400">{n.subhead}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <button
+                onClick={() => goTo('/get-started')}
+                className="btn-shimmer rounded-full px-6 py-3 text-sm font-bold text-black transition hover:scale-[1.02]"
+              >
+                Request Your Audit →
+              </button>
+              <button
+                onClick={() => goTo('/#pricing')}
+                className="rounded-full border border-gray-700 bg-[#141414] px-6 py-3 text-sm font-semibold text-gray-300 transition hover:border-amber-500/50 hover:text-amber-400"
+              >
+                See pricing
+              </button>
+            </div>
+          </div>
+
+          <section className="mt-6 grid gap-5 md:grid-cols-3">
+            {n.stats.map((s, i) => (
+              <div key={i} className="rounded-2xl border border-gray-800 bg-[#141414] p-6">
+                <div className="text-3xl font-bold text-amber-400">{s.label}</div>
+                <p className="mt-3 text-sm leading-6 text-gray-400">{s.text}</p>
+              </div>
+            ))}
+          </section>
+
+          <section className="mt-14">
+            <h2 className="text-2xl font-semibold text-white md:text-3xl">Sound familiar?</h2>
+            <ul className="mt-6 space-y-3">
+              {n.painPoints.map((p, i) => (
+                <li key={i} className="flex gap-3 rounded-xl border border-gray-800 bg-[#141414] p-4 text-gray-300">
+                  <span className="text-amber-400">→</span>
+                  <span className="leading-7">{p}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="mt-14 rounded-2xl border border-amber-500/20 bg-[#141414] p-7 md:p-10">
+            <h2 className="text-2xl font-semibold text-white md:text-3xl">What RankFrame does for {route === 'niche-dentists' ? 'dental practices' : 'e-commerce stores'}</h2>
+            <ul className="mt-6 space-y-3">
+              {n.whatWeDo.map((p, i) => (
+                <li key={i} className="flex gap-3 text-gray-300">
+                  <span className="text-amber-400">✓</span>
+                  <span className="leading-7">{p}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <button
+                onClick={() => goTo('/get-started')}
+                className="btn-shimmer rounded-full px-6 py-3 text-sm font-bold text-black transition hover:scale-[1.02]"
+              >
+                Request Your Audit →
+              </button>
+            </div>
+          </section>
+
+          <section className="mt-14">
+            <h2 className="text-2xl font-semibold text-white md:text-3xl">FAQ</h2>
+            <div className="mt-6 space-y-4">
+              {n.faq.map((f, i) => (
+                <details key={i} className="rounded-2xl border border-gray-800 bg-[#141414] p-6 open:border-amber-500/30">
+                  <summary className="cursor-pointer text-lg font-semibold text-white">{f.q}</summary>
+                  <p className="mt-4 text-base leading-7 text-gray-300">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <div className="mt-14 rounded-2xl border border-amber-500/30 bg-[#141414] p-7 text-center">
+            <p className="text-lg text-gray-300">Ready to see exactly what's holding your rankings back?</p>
+            <button
+              onClick={() => goTo('/get-started')}
+              className="btn-shimmer mt-5 rounded-full px-7 py-4 text-sm font-bold text-black transition hover:scale-[1.02]"
+            >
+              Start Your SEO Audit →
+            </button>
+            <p className="mt-4 text-xs text-gray-500">30+ sites audited · $0 audit · 3 business days</p>
+          </div>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
+
   if (route === 'blog') {
     return (
       <div className="grain-overlay min-h-screen bg-[#0a0a0a] text-gray-100">
@@ -1171,6 +1455,12 @@ export default function AISeoMarketingLandingPage() {
               </p>
 
               <div className="mt-10 flex flex-wrap gap-4">
+                <button
+                  onClick={() => goTo('/get-started')}
+                  className="btn-shimmer group rounded-full px-7 py-4 text-sm font-bold text-black transition hover:scale-[1.02]"
+                >
+                  Start Your SEO Audit <span className="inline-block transition group-hover:translate-x-1">→</span>
+                </button>
                 <a
                   href="#case-study"
                   className="group rounded-full border border-gray-700 bg-[#141414] px-7 py-4 text-sm font-semibold text-gray-300 transition hover:border-amber-500/50 hover:text-amber-400"
@@ -1748,14 +2038,15 @@ function SiteFooter() {
             <div className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500">Navigation</div>
             <nav className="mt-5 grid gap-3" aria-label="Footer navigation">
               {[
-                ['/#why-seo', 'Why SEO Matters'],
+                ['/get-started', 'Get Started'],
                 ['/#services', 'SEO Services'],
                 ['/#case-study', 'Case Study'],
-                ['/#how-it-works', 'How It Works'],
                 ['/#pricing', 'Pricing'],
                 ['/blog', 'Blog'],
                 ['/glossary', 'SEO Glossary'],
                 ['/statistics', 'SEO Statistics'],
+                ['/seo-for-dentists', 'SEO for Dentists'],
+                ['/seo-for-ecommerce', 'SEO for E-commerce'],
                 ['/about', 'About'],
               ].map(([href, label]) => (
                 <a key={href} href={href} onClick={(e) => footerLinkClick(e, href)} className="text-sm text-gray-400 transition hover:text-amber-400">{label}</a>
@@ -1973,6 +2264,9 @@ function getRouteFromPath(path) {
   if (clean === '/glossary' || clean === '/glossary/') return 'glossary';
   if (clean === '/statistics' || clean === '/statistics/') return 'statistics';
   if (clean === '/about' || clean === '/about/') return 'about';
+  if (clean === '/get-started' || clean === '/get-started/' || clean === '/free-audit' || clean === '/free-audit/') return 'get-started';
+  if (clean === '/seo-for-dentists' || clean === '/seo-for-dentists/') return 'niche-dentists';
+  if (clean === '/seo-for-ecommerce' || clean === '/seo-for-ecommerce/') return 'niche-ecommerce';
   if (clean === '/blog' || clean === '/blog/') return 'blog';
   if (clean.startsWith('/blog/')) return 'blog-post';
   return 'home';
