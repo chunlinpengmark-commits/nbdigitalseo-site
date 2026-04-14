@@ -122,6 +122,98 @@ export default function AISeoMarketingLandingPage() {
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute('href', canonical);
+
+    // Manage og:url, og:title, og:description, og:type, twitter:card meta tags
+    const setMeta = (attr, name, content) => {
+      let el = document.querySelector(`meta[${attr}="${name}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', description);
+    setMeta('property', 'og:url', canonical);
+    setMeta('property', 'og:type', route === 'blog-post' ? 'article' : 'website');
+    setMeta('property', 'og:site_name', 'RankFrame SEO');
+    setMeta('property', 'og:image', SITE_URL + '/og-image.png');
+    setMeta('name', 'twitter:card', 'summary_large_image');
+    setMeta('name', 'twitter:title', title);
+    setMeta('name', 'twitter:description', description);
+    setMeta('name', 'twitter:image', SITE_URL + '/og-image.png');
+
+    // Manage JSON-LD structured data
+    const setJsonLd = (id, data) => {
+      let el = document.querySelector(`script[data-jsonld="${id}"]`);
+      if (data === null) {
+        if (el) el.remove();
+        return;
+      }
+      if (!el) {
+        el = document.createElement('script');
+        el.setAttribute('type', 'application/ld+json');
+        el.setAttribute('data-jsonld', id);
+        document.head.appendChild(el);
+      }
+      el.textContent = JSON.stringify(data);
+    };
+
+    // Organization schema — always present
+    setJsonLd('organization', {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'RankFrame SEO',
+      url: SITE_URL,
+      logo: SITE_URL + '/favicon.svg',
+      description: 'On-page SEO architecture setup and off-page Google Trust building for small businesses.',
+      sameAs: ['https://medium.com/@bluegalaxydev'],
+    });
+
+    // WebSite schema — always present
+    setJsonLd('website', {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'RankFrame SEO',
+      url: SITE_URL,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: SITE_URL + '/blog?q={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
+    });
+
+    // BlogPosting schema — only on blog post pages
+    if (route === 'blog-post') {
+      const post = getPostBySlug(getBlogSlug());
+      if (post) {
+        setJsonLd('blogposting', {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.excerpt,
+          url: SITE_URL + '/blog/' + post.slug,
+          datePublished: post.date,
+          dateModified: post.date,
+          author: { '@type': 'Person', name: post.author || 'Blue Galaxy' },
+          publisher: {
+            '@type': 'Organization',
+            name: 'RankFrame SEO',
+            logo: { '@type': 'ImageObject', url: SITE_URL + '/favicon.svg' },
+          },
+          mainEntityOfPage: { '@type': 'WebPage', '@id': SITE_URL + '/blog/' + post.slug },
+          keywords: (post.tags || []).join(', '),
+          image: SITE_URL + '/og-image.png',
+          articleSection: 'SEO',
+          inLanguage: 'en-US',
+        });
+      } else {
+        setJsonLd('blogposting', null);
+      }
+    } else {
+      setJsonLd('blogposting', null);
+    }
   }, [route]);
 
   const deliverables = [
