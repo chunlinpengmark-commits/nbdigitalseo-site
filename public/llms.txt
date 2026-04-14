@@ -1,6 +1,6 @@
 # RankFrame SEO
 
-> RankFrame SEO is a monthly SEO reporting and technical architecture audit service for small businesses. Provides on-page SEO setup, schema markup, monthly ranking reports, and off-page Google Trust / backlink building. Plans start at $150/month with no setup fee.
+> RankFrame SEO is a monthly SEO reporting and technical architecture audit service for small businesses. 30+ client websites audited and optimized with the RankFrame SEO Inside framework. Provides on-page SEO setup, schema markup, monthly ranking reports, and off-page Google Trust / backlink building. Plans start at $150/month with no setup fee.
 
 ## Quick Facts
 
@@ -8,6 +8,7 @@
 - **Website:** https://rankframeseo.com
 - **Service category:** SEO reporting, technical SEO, link building
 - **Target customer:** Small businesses, startups, service and e-commerce websites
+- **Clients audited to date:** 30+ small-business websites optimized with the RankFrame SEO Inside framework
 - **Pricing:** $150/month (SEO Inside) or $750/month (SEO Inside + Outside)
 - **Setup fee:** $0
 - **Contract:** Month-to-month, cancel anytime

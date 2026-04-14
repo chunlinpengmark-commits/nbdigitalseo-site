@@ -126,6 +126,12 @@ export const glossaryTerms = [
 
 export const seoStatistics = [
   {
+    stat: '30+',
+    claim: 'small-business websites audited and optimized by RankFrame SEO using the SEO Inside architecture framework.',
+    source: 'RankFrame SEO client roster, 2026',
+    category: 'RankFrame Client Base',
+  },
+  {
     stat: '68%',
     claim: 'of online experiences begin with a search engine.',
     source: 'BrightEdge Organic Research',
@@ -220,9 +226,9 @@ export const seoStatistics = [
 export const aboutContent = {
   headline: 'About RankFrame SEO',
   tagline:
-    'Technical-SEO-first monthly reporting for small businesses that want durable results, not short-lived hacks.',
+    'Technical-SEO-first monthly reporting for small businesses that want durable results, not short-lived hacks. 30+ client websites audited and optimized with the RankFrame SEO Inside framework.',
   paragraphs: [
-    'RankFrame SEO is a monthly SEO reporting and technical architecture audit service. We exist because roughly 70% of small-business websites are effectively invisible to Google — not because their products or content are weak, but because their site architecture cannot be parsed by search engine crawlers. Our job is to fix the foundation so the content can actually compete.',
+    'RankFrame SEO is a monthly SEO reporting and technical architecture audit service. To date we have audited and optimized the SEO Inside architecture of 30+ small-business websites — service companies, e-commerce stores, and trade-show platforms — running the same durable, Google-guideline-compliant framework for every engagement. We exist because roughly 70% of small-business websites are effectively invisible to Google — not because their products or content are weak, but because their site architecture cannot be parsed by search engine crawlers. Our job is to fix the foundation so the content can actually compete.',
     'Every plan starts with a full architecture audit: meta tags, schema markup, internal linking, crawlability, indexing signals, Core Web Vitals, and keyword-ranking visibility. From there, clients receive a monthly performance report with prioritized next steps — no 40-page PDFs nobody reads.',
     'We do not use PBNs, link farms, or any tactic Google penalizes. Every recommendation we make is documented in Google\'s own search guidelines. That means slower first wins in some cases, but durable rankings that compound instead of collapsing at the next core update.',
   ],

@@ -190,7 +190,8 @@ export default function AISeoMarketingLandingPage() {
       alternateName: 'RankFrame',
       url: SITE_URL,
       logo: SITE_URL + '/favicon.svg',
-      description: 'Monthly SEO reporting and technical architecture audit service for small businesses. On-page SEO setup, schema markup, and off-page Google Trust building. Plans from $150/month with no setup fee.',
+      description: 'Monthly SEO reporting and technical architecture audit service for small businesses. 30+ websites audited and optimized — on-page SEO setup, schema markup, and off-page Google Trust building. Plans from $150/month with no setup fee.',
+      slogan: '30+ websites audited. Monthly SEO reporting built on technical SEO that Google actually rewards.',
       foundingDate: '2025',
       knowsAbout: [
         'Search Engine Optimization',
@@ -1165,6 +1166,10 @@ export default function AISeoMarketingLandingPage() {
                 <span className="ml-4 text-sm font-medium text-amber-400/80">No setup fee</span>
               </p>
 
+              <p className="mt-3 text-sm font-medium text-gray-400">
+                <span className="text-amber-400 font-semibold">30+ websites</span> audited and optimized with the RankFrame SEO Inside framework.
+              </p>
+
               <div className="mt-10 flex flex-wrap gap-4">
                 <a
                   href="#case-study"
@@ -1177,9 +1182,9 @@ export default function AISeoMarketingLandingPage() {
               {/* Mini stat cards */}
               <div className="mt-14 grid gap-4 sm:grid-cols-3">
                 {[
+                  ['30+ Sites Audited', 'Live client base — not theory, proven results'],
                   ['Monthly Reports', 'Clear SEO findings every 30 days'],
                   ['AI Technical Audit', 'Structure, metadata, and Google checks'],
-                  ['Simple Pricing', 'One flat fee, no setup cost'],
                 ].map(([title, text], i) => (
                   <FadeIn key={title} delay={0.1 + i * 0.08} className="card-hover-glow rounded-2xl border border-gray-800 bg-[#141414]/80 p-5 backdrop-blur">
                     <div className="text-sm font-semibold text-amber-400">{title}</div>
