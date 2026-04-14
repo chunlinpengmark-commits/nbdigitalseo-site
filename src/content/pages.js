@@ -254,7 +254,7 @@ export const aboutContent = {
     },
   ],
   contact: {
-    email: 'zeuscapitalholdings@gmail.com',
+    email: 'chunlinpengmark@gmail.com',
     country: 'United States (primary)',
   },
 };

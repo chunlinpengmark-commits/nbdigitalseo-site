@@ -216,7 +216,7 @@ export default function AISeoMarketingLandingPage() {
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer service',
-        email: 'zeuscapitalholdings@gmail.com',
+        email: 'chunlinpengmark@gmail.com',
         availableLanguage: ['English'],
       },
       sameAs: [
@@ -1091,7 +1091,7 @@ export default function AISeoMarketingLandingPage() {
 
           <section className="rounded-2xl border border-amber-500/30 bg-[#141414] p-7 md:p-10">
             <form
-              action="https://formsubmit.co/zeuscapitalholdings@gmail.com"
+              action="https://formsubmit.co/chunlinpengmark@gmail.com"
               method="POST"
               className="space-y-5"
             >
@@ -1157,7 +1157,7 @@ export default function AISeoMarketingLandingPage() {
               </button>
 
               <p className="text-center text-xs text-gray-500">
-                Or email us directly: <a href="mailto:zeuscapitalholdings@gmail.com" className="text-amber-400 underline underline-offset-2">zeuscapitalholdings@gmail.com</a>
+                Or email us directly: <a href="mailto:chunlinpengmark@gmail.com" className="text-amber-400 underline underline-offset-2">chunlinpengmark@gmail.com</a>
               </p>
             </form>
           </section>
