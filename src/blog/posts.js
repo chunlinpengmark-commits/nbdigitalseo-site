@@ -3,6 +3,172 @@
 
 export const posts = [
   {
+    slug: 'geo-optimization-chatgpt-claude-perplexity-2026',
+    title: 'GEO in 2026: How to Get Your Website Cited by ChatGPT, Claude, and Perplexity',
+    excerpt:
+      'Generative Engine Optimization is the new SEO. If ChatGPT, Claude, Perplexity, and Google AI Overviews don\'t cite your site, you don\'t exist in the answer layer. Here\'s the eight-step playbook we use to make small-business sites citation-ready for AI search.',
+    date: '2026-04-14',
+    readTime: '12 min read',
+    author: 'Blue Galaxy',
+    tags: ['GEO', 'AI Search', 'Schema Markup', 'llms.txt', 'Citation', 'Technical SEO'],
+    mediumUrl: 'https://medium.com/@bluegalaxydev',
+    content: `A shift is happening in search, and most small businesses don't know it yet. Roughly a year ago, the question was "How do I rank on page one of Google?" Today, increasingly, the question is "How do I get **cited** when ChatGPT, Claude, Perplexity, or Google AI Overviews answer a question about my industry?"
+
+If the AI doesn't cite you, you don't exist. The user never sees your link. They see the AI's answer, maybe with a small "Sources" block, and they move on. That's the new zero-click reality.
+
+The good news: the plumbing for getting cited is knowable, buildable, and — compared to outranking an incumbent on a competitive keyword — *cheap*. I call it **GEO: Generative Engine Optimization**, and this is the exact eight-step playbook we use at RankFrame to make small-business websites citation-ready for AI search.
+
+## What "Getting Cited" Actually Means
+
+Before tactics, a definition. When an AI engine generates an answer, it does roughly four things:
+
+1. **Retrieves** candidate documents — usually from its training data plus a live web crawl
+2. **Ranks** them by authority, topical relevance, and how extractable their facts are
+3. **Synthesizes** the answer — often paraphrasing, sometimes quoting
+4. **Cites** the top 3–8 sources as clickable links
+
+Your job in GEO is to be in the citation list, not the training data. Training data is frozen in time. Citations are live. That means the game is *retrieval and ranking at answer time*, and the levers look very different from traditional SEO.
+
+## Step 1 — Allow AI Crawlers Explicitly in robots.txt
+
+The most common, most embarrassing GEO failure I see on small-business sites: their \`robots.txt\` blocks the AI crawlers. Sometimes by default from Cloudflare's "block AI bots" toggle. Sometimes because a developer read a 2023 blog post and copy-pasted a list.
+
+In 2026 you want every one of these allowed:
+
+\`\`\`
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+\`\`\`
+
+Blocking these means Google AI Overviews, ChatGPT Search, Claude, Perplexity, and Meta's AI products can never retrieve you live. You've self-banned from the citation pool. Fix this first.
+
+## Step 2 — Publish an llms.txt File
+
+The \`llms.txt\` standard is a Markdown file at \`/llms.txt\` that gives LLMs a concise, structured summary of your site — company name, pricing, canonical pages, FAQ, key facts. Think of it as a machine-readable elevator pitch.
+
+A good \`llms.txt\` includes:
+
+- Quick company facts (name, site URL, contact, pricing)
+- Your core offering in one paragraph
+- Canonical page URLs for the most citation-worthy content
+- FAQ answers in clean Q/A format
+- Key statistics with sources (AI engines love extractable numbers)
+
+Publish it at \`yoursite.com/llms.txt\` and — optionally — a richer \`llms-full.txt\` with full playbook-level content. We've seen AI engines start citing client sites within 2–4 weeks of an \`llms.txt\` going live.
+
+## Step 3 — Structured Data Everywhere (JSON-LD)
+
+AI engines extract structured data 10× faster than they extract prose. Every fact you want cited should live inside a JSON-LD block, not just in paragraphs. The schema types that punch above their weight for GEO:
+
+- \`Organization\` with \`knowsAbout\`, \`contactPoint\`, \`sameAs\` (your profile links)
+- \`Service\` with clear \`name\`, \`price\`, \`areaServed\`, \`provider\`
+- \`FAQPage\` / \`QAPage\` with plain-English answers
+- \`HowTo\` for any step-by-step content
+- \`DefinedTerm\` and \`DefinedTermSet\` for glossary pages — AI engines love glossaries
+- \`Dataset\` for statistics pages, with a \`license\` field (CC BY 4.0 signals "cite me freely")
+- \`Person\` for author bios, with \`jobTitle\`, \`knowsAbout\`, and \`sameAs\` to your Medium / LinkedIn
+- \`SpeakableSpecification\` so voice assistants can read your answer aloud
+- \`BreadcrumbList\` on every non-home page
+
+Missing structured data is the most common GEO failure after blocked robots.txt.
+
+## Step 4 — Write Like a Reference, Not a Blog
+
+AI engines quote sources that read like references. That means:
+
+- **One fact per sentence.** Don't bury the statistic in a clause — lead with it.
+- **Attributable numbers.** "Sites with schema markup see 20–30% higher SERP click-through." Not "schema helps a lot."
+- **Named mechanisms.** Use the precise technical term — \`robots.txt\`, \`canonical tag\`, \`INP\`, not "that file" or "the metric."
+- **Direct Q/A framing.** Articles that pose a question and answer it in the first paragraph get cited more than articles that build up to an answer.
+
+Look at what AI engines cite in your niche. It's rarely the most entertaining article. It's the most extractable one.
+
+## Step 5 — Build E-E-A-T Signals the AI Can See
+
+Google's E-E-A-T framework (Experience, Expertise, Authoritativeness, Trust) is also what the AI engines reward. The machine-readable version:
+
+- Every article attributes to a named human with a \`Person\` schema
+- That person has a bio page with \`jobTitle\`, \`knowsAbout\`, and \`sameAs\` links to their Medium, GitHub, LinkedIn, etc.
+- Your \`Organization\` schema has \`foundingDate\`, \`contactPoint\`, real \`sameAs\` profiles
+- You show your math — prices, case study numbers, methodology — in plain numeric form
+
+"Anonymous blog with no author" ranks nowhere in the GEO era. AI engines are explicitly optimizing against it.
+
+## Step 6 — Ping IndexNow the Moment You Publish
+
+IndexNow is an open protocol (Bing, Yandex, Naver, Seznam) that lets you tell search engines "this URL just changed, re-crawl it now." Post-publish, ping it. Typical crawl-to-index delta drops from days to under a minute on Bing — and Bing feeds ChatGPT Search.
+
+Put a hex key file at \`/yourkey.txt\`, then fire a GET to:
+
+\`\`\`
+https://api.indexnow.org/indexnow?url=<your-url>&key=<your-key>&keyLocation=<your-key-file-url>
+\`\`\`
+
+Five minutes of setup, permanent upside.
+
+## Step 7 — Publish Extractable Reference Pages
+
+Three page types disproportionately feed AI citations:
+
+1. **Glossary** — 15–25 plain-English definitions of your industry's terms, each wrapped in \`DefinedTerm\` schema. AI engines cite glossaries when users ask "what is X?" — which is half of their traffic.
+2. **Statistics** — 10–20 cited statistics with attribution, wrapped in a \`Dataset\` schema with a CC BY 4.0 license. Statistics pages are pure citation catnip.
+3. **Playbook** — long-form step-by-step guides with \`HowTo\` schema. AI engines extract steps.
+
+We added all three to \`rankframeseo.com\` in April 2026 and started seeing AI-referral traffic inside two weeks.
+
+## Step 8 — Monitor and Iterate
+
+Once the plumbing is in, instrument it:
+
+- Search for your brand on ChatGPT, Claude, Perplexity, and Google AI Overviews weekly — are you cited?
+- Check your server logs (or Cloudflare analytics) for \`GPTBot\`, \`ClaudeBot\`, \`PerplexityBot\` hits — are they crawling?
+- Track the referer header from \`chat.openai.com\`, \`claude.ai\`, \`perplexity.ai\` — are users clicking through?
+
+If you're not seeing AI crawler hits within 4 weeks of launching GEO, check \`robots.txt\` first, \`llms.txt\` second, and structured data third. Nine times out of ten the failure is plumbing, not strategy.
+
+## The Bottom Line
+
+Traditional SEO still matters — ranking in Google's blue-link results is a direct path to AI citations because AI engines sample top-ranked pages. But GEO is the additive layer: the work you do **specifically** so AI engines can parse, extract, and cite your site. It's also a durable moat. Competitors who haven't published \`llms.txt\`, haven't allowed AI crawlers, and haven't wrapped their facts in schema are simply invisible to half the future search market.
+
+If you want the full GEO layer built for you — \`llms.txt\`, AI crawler allowlist, full schema suite, glossary, statistics page, IndexNow, monthly monitoring — that's exactly what our **$150/month** [SEO Inside plan](/) covers. Add backlink and citation building on top with the **$750/month** plan. Either way, the sooner you turn on the GEO signals, the sooner AI engines start sending traffic that competitors can't intercept.`,
+  },
+  {
     slug: 'seo-architecture-playbook-small-business',
     title: 'The Small Business SEO Architecture Playbook: 5 Technical Fixes Google Actually Rewards in 2026',
     excerpt:

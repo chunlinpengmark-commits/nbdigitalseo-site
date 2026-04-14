@@ -5,13 +5,23 @@
     <link>https://rankframeseo.com/blog</link>
     <description>Technical SEO playbooks, architecture audits, and Google Trust building insights for small businesses.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Apr 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Apr 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://rankframeseo.com/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://rankframeseo.com/og-image.png</url>
       <title>RankFrame SEO Blog</title>
       <link>https://rankframeseo.com/blog</link>
     </image>
+    <item>
+      <title>GEO in 2026: How to Get Your Website Cited by ChatGPT, Claude, and Perplexity</title>
+      <link>https://rankframeseo.com/blog/geo-optimization-chatgpt-claude-perplexity-2026</link>
+      <guid isPermaLink="true">https://rankframeseo.com/blog/geo-optimization-chatgpt-claude-perplexity-2026</guid>
+      <pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate>
+      <description>Generative Engine Optimization is the new SEO. The 8-step playbook for making small-business sites citation-ready for ChatGPT, Claude, Perplexity, and Google AI Overviews.</description>
+      <category>GEO</category>
+      <category>AI Search</category>
+      <category>Schema Markup</category>
+    </item>
     <item>
       <title>The Small Business SEO Architecture Playbook: 5 Technical Fixes Google Actually Rewards in 2026</title>
       <link>https://rankframeseo.com/blog/seo-architecture-playbook-small-business</link>
