@@ -214,6 +214,111 @@ export default function AISeoMarketingLandingPage() {
     } else {
       setJsonLd('blogposting', null);
     }
+
+    // Home-only schemas
+    if (route === 'home') {
+      setJsonLd('service', {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        serviceType: 'SEO Reporting & Architecture Audit',
+        provider: { '@type': 'Organization', name: 'RankFrame SEO', url: SITE_URL },
+        areaServed: { '@type': 'Country', name: 'United States' },
+        description: 'On-page SEO architecture setup, monthly reports, keyword ranking tracking, and off-page Google Trust building for small businesses.',
+        offers: [
+          { '@type': 'Offer', name: 'SEO Inside', price: '150', priceCurrency: 'USD', url: SITE_URL + '/#pricing', description: 'On-page SEO architecture setup + monthly reporting' },
+          { '@type': 'Offer', name: 'SEO Inside + Outside', price: '750', priceCurrency: 'USD', url: SITE_URL + '/#pricing', description: 'Full on-page + off-page Google Trust building' },
+        ],
+      });
+
+      setJsonLd('faqpage', {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          { '@type': 'Question', name: 'What happens after I subscribe?', acceptedAnswer: { '@type': 'Answer', text: 'You submit your site details, our AI audit workflow begins, and you receive your first structured SEO review with recommendations.' } },
+          { '@type': 'Question', name: 'What is the difference between SEO Inside and SEO Outside?', acceptedAnswer: { '@type': 'Answer', text: 'SEO Inside ($150/month) covers on-page optimization — architecture setup, meta tags, schema markup, sitemap, and internal linking with monthly reporting. SEO Inside + Outside ($750/month) includes everything in SEO Inside, plus external backlink acquisition, guest post outreach, 50+ business directory citations, competitor backlink gap analysis, toxic link audits, and a dedicated SEO strategist.' } },
+          { '@type': 'Question', name: 'Is there any setup fee?', acceptedAnswer: { '@type': 'Answer', text: 'No. Both plans have no setup fee. Start at $150/month for SEO Inside, or $750/month for SEO Inside + Outside.' } },
+          { '@type': 'Question', name: 'Who is this service best for?', acceptedAnswer: { '@type': 'Answer', text: 'SEO Inside is ideal for small businesses and startups that need a solid SEO foundation. SEO Inside + Outside is for businesses ready to aggressively grow their Google rankings and domain authority.' } },
+          { '@type': 'Question', name: 'How fast do you review a website?', acceptedAnswer: { '@type': 'Answer', text: 'We review core SEO structure, technical issues, indexing signals, and keyword visibility efficiently, then organize the findings into a clean monthly report.' } },
+          { '@type': 'Question', name: 'Do you support ecommerce and service websites?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. The service is suitable for service businesses, ecommerce sites, and general company websites that need better SEO structure and reporting.' } },
+        ],
+      });
+
+      setJsonLd('howto', {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        name: 'How to Start Your Monthly SEO Report',
+        description: 'Three-step process to start a RankFrame SEO monthly reporting subscription.',
+        step: [
+          { '@type': 'HowToStep', position: 1, name: 'Submit your website', text: 'Send us your website details and we begin reviewing the structure, technical SEO foundation, and keyword positioning.' },
+          { '@type': 'HowToStep', position: 2, name: 'We audit your SEO setup', text: 'We examine SEO architecture, internal linking, metadata, crawlability, indexing, and keyword ranking visibility.' },
+          { '@type': 'HowToStep', position: 3, name: 'Receive your monthly report', text: 'You get a clear report with issues, opportunities, ranking insights, and next-step recommendations.' },
+        ],
+      });
+
+      setJsonLd('webpage', {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: title,
+        description,
+        url: canonical,
+        inLanguage: 'en-US',
+        isPartOf: { '@type': 'WebSite', name: 'RankFrame SEO', url: SITE_URL },
+      });
+
+      setJsonLd('professionalservice', {
+        '@context': 'https://schema.org',
+        '@type': 'ProfessionalService',
+        name: 'RankFrame SEO',
+        url: SITE_URL,
+        image: SITE_URL + '/og-image.png',
+        description: 'Monthly SEO reporting, architecture audits, and Google Trust building for small businesses.',
+        priceRange: '$150–$750/month',
+        areaServed: { '@type': 'Country', name: 'United States' },
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: 'SEO Plans',
+          itemListElement: [
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'SEO Inside' }, price: '150', priceCurrency: 'USD' },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'SEO Inside + Outside' }, price: '750', priceCurrency: 'USD' },
+          ],
+        },
+      });
+
+      setJsonLd('breadcrumbs', null);
+    } else {
+      setJsonLd('service', null);
+      setJsonLd('faqpage', null);
+      setJsonLd('howto', null);
+      setJsonLd('webpage', null);
+      setJsonLd('professionalservice', null);
+    }
+
+    // Breadcrumbs for blog index and blog posts
+    if (route === 'blog') {
+      setJsonLd('breadcrumbs', {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE_URL + '/blog' },
+        ],
+      });
+    } else if (route === 'blog-post') {
+      const post = getPostBySlug(getBlogSlug());
+      if (post) {
+        setJsonLd('breadcrumbs', {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE_URL + '/blog' },
+            { '@type': 'ListItem', position: 3, name: post.title, item: SITE_URL + '/blog/' + post.slug },
+          ],
+        });
+      } else {
+        setJsonLd('breadcrumbs', null);
+      }
+    }
   }, [route]);
 
   const deliverables = [
